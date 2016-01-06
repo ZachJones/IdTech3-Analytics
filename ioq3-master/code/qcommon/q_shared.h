@@ -177,9 +177,8 @@ typedef int intptr_t;
 
 #endif
 
-
 #include "q_platform.h"
-
+#include "altlog.h" //##### GEA
 
 //=============================================================
 

@@ -5,7 +5,6 @@
 #include <time.h>
 #include "altlog.h"
 
-//Alt_LogPriority alt_log_zach_priority = ALT_LOG_PRIORITY_VERBOSE;
 
 typedef struct Alt_LogLevel
 {
@@ -16,9 +15,13 @@ typedef struct Alt_LogLevel
 
 //================================================
 
+//#define DISABLE_ALT_LOG
+
+#ifndef DISABLE_ALT_LOG
+
 void Open_Alt(char *file)
 {
-	altLog.file = fopen(file,"w");
+	altLog.file = fopen(file,"a");
 }
 
 void Log_AltFile(Alt_LogPriority priority, char* message, ...)
@@ -26,7 +29,7 @@ void Log_AltFile(Alt_LogPriority priority, char* message, ...)
 	va_list varArgs; //Holds all variadic arguments
 
 	if (!altLog.file) return; //If there's no file, don't log
-
+	
 	va_start(varArgs, message);
 
 	if (priority >= priorityLevel)
@@ -118,3 +121,13 @@ void Close_Alt(void)
 {
 	fclose(altLog.file);
 }
+
+#else
+
+void Open_Alt(char *file){}
+
+void Log_AltFile(Alt_LogPriority priority, char *message, ...){} //Log message to altlog.txt
+void Log_AltConsole(Alt_LogPriority priority, char *message, ...){} //Log message to the console
+
+void Close_Alt(void){}
+#endif

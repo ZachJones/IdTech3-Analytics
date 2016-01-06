@@ -1169,6 +1169,17 @@ void MSG_WriteDeltaPlayerstate( msg_t *msg, struct playerState_s *from, struct p
 		Com_Memset (&dummy, 0, sizeof(dummy));
 	}
 
+	//####### GEA
+	#define DISABLE_ALT_LOG
+ 
+	char* filename = "altlog.txt";
+	Open_Alt(filename);
+
+	Log_AltFile(ALT_LOG_PRIORITY_PERFORM, "Player %d Position = %f, %f, %f", from->clientNum, from->origin[0], from->origin[1], from->origin[2]);
+
+	Close_Alt();
+	//####### GEA
+
 	numFields = ARRAY_LEN( playerStateFields );
 
 	lc = 0;

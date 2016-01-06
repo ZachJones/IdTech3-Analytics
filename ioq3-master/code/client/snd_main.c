@@ -217,7 +217,8 @@ S_UpdateEntityPosition
 */
 void S_UpdateEntityPosition( int entityNum, const vec3_t origin )
 {
-	if( si.UpdateEntityPosition ) {
+	if( si.UpdateEntityPosition ) 
+	{
 		si.UpdateEntityPosition( entityNum, origin );
 	}
 }

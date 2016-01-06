@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <string.h>
 #include <ctype.h>
 #include <errno.h>
-#include "../qcommon/altlog.h" //#### GEA
+
 #ifndef DEDICATED
 #ifdef USE_LOCAL_HEADERS
 #	include "SDL.h"
@@ -672,18 +672,9 @@ int main( int argc, char **argv )
 	Com_Init( commandLine );
 	NET_Init( );
 
-	char* filename = "altlog.txt"; //#### GEA
-	Open_Alt(filename); //#### GEA
-
 	CON_Init( );
 
-	priorityLevel = ALT_LOG_PRIORITY_VERBOSE;
-
-	//#define Log_AltFile(...) //############### Disables File Logging 
-
-	Log_AltFile(ALT_LOG_PRIORITY_PERFORM, "Alt - Initialised %d, %d, %d", 1, 2, 3); //#### GEA
-
-	Log_AltConsole(ALT_LOG_PRIORITY_PERFORM, "Alt - Initialised %d, %d, %d", 4, 5, 6); //#### GEA
+	priorityLevel = ALT_LOG_PRIORITY_VERBOSE; //############ GEA
 
 	signal( SIGILL, Sys_SigHandler );
 	signal( SIGFPE, Sys_SigHandler );
@@ -691,16 +682,11 @@ int main( int argc, char **argv )
 	signal( SIGTERM, Sys_SigHandler );
 	signal( SIGINT, Sys_SigHandler );
 
-	Log_AltConsole(ALT_LOG_PRIORITY_CRITICAL, "CRITICAL ERROR"); //#### GEA
-
 	while( 1 )
 	{
 		IN_Frame( );
 		Com_Frame( );
-		Log_AltFile(ALT_LOG_PRIORITY_VERBOSE, "Frame"); //#### GEA
 	}
-
-	Close_Alt(); //#### GEA
 
 	return 0;
 }
